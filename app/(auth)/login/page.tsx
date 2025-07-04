@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
-import { signIn, getSession } from 'next-auth/react';
+import React, { useState, Suspense, useEffect } from 'react';
+import { signIn, getSession, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -27,9 +27,18 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { showError, showSuccess } = useToast();
+  const { data: session, status } = useSession();
   
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
   const error = searchParams.get('error');
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (status === 'authenticated' && session) {
+      router.push(callbackUrl);
+      router.refresh();
+    }
+  }, [status, session, router, callbackUrl]);
 
   const {
     register,
