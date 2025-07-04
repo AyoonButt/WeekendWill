@@ -68,7 +68,7 @@ const Header: React.FC = () => {
         {isMobile && (
           <div className="flex items-center h-14 px-4 justify-between">
             {/* Hamburger menu (left) */}
-            <div className="flex-shrink-0 w-12">
+            <div className="flex-shrink-0 w-16 flex justify-start">
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md p-2.5 text-charcoal-700 hover:bg-gray-100 w-auto min-w-0"
@@ -80,7 +80,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Logo (center) */}
-            <div className="flex items-center justify-center flex-1 mx-4">
+            <div className="flex items-center justify-center flex-1">
               <Link 
                 href="/" 
                 className="flex items-center hover:opacity-80 transition-opacity"
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Right side */}
-            <div className="flex items-center justify-end flex-shrink-0 w-12">
+            <div className="flex items-center justify-end flex-shrink-0 w-16">
               {status === 'loading' ? (
                 <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse" />
               ) : session ? (
