@@ -111,18 +111,23 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error('=== REGISTRATION ERROR ===');
+    console.error('Error details:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
     console.error('Environment check:', {
       hasMongoUri: !!process.env.MONGODB_URI,
       mongoDbName: process.env.MONGODB_DB || 'weekend-will',
-      nodeEnv: process.env.NODE_ENV
+      nodeEnv: process.env.NODE_ENV,
+      vercelEnv: process.env.VERCEL_ENV
     });
+    console.error('=== END REGISTRATION ERROR ===');
     
     return NextResponse.json(
       { 
         success: false, 
         error: 'Registration failed. Please try again.',
-        debug: process.env.NODE_ENV === 'development' && error instanceof Error ? error.message : undefined
+        debug: process.env.NODE_ENV === 'production' && error instanceof Error ? error.message : undefined,
+        timestamp: new Date().toISOString()
       },
       { status: 500 }
     );
