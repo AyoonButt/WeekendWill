@@ -102,19 +102,27 @@ const faqData = {
   'Pricing & Plans': [
     {
       question: 'How much does it cost to create a will?',
-      answer: 'Our Essential Will package costs $39 for a one-time payment. This includes your will, signing instructions, and basic updates. We also offer an Unlimited package for $89/year with additional features.',
+      answer: 'Our Essential Plan costs $109 for a one-time payment. This includes your complete will, photo album, downloadable PDFs, and AI assistance. We also offer a 1 Year Unlimited Free Edits plan for $129 one-time.',
     },
     {
       question: 'Are there any hidden fees?',
-      answer: 'No hidden fees. The price you see is the price you pay. There are no additional charges for downloading, printing, or basic updates to your will.',
+      answer: 'No hidden fees. The price you see is the price you pay. There are no additional charges for downloading, printing, or accessing your will.',
     },
     {
       question: 'What\'s included in each plan?',
-      answer: 'Essential ($39): Basic will, signing instructions, and email support. Unlimited ($89/year): Everything in Essential plus unlimited updates, advanced estate planning tools, and priority support.',
+      answer: 'Essential Plan ($109): Generate will, describe wishes, photo album, downloadable PDFs, AI assist, and attorney-reviewed templates. Unlimited Plan ($129): Everything in Essential plus unlimited free edits for 1 year, secure cloud storage, and the ability to update as life changes.',
+    },
+    {
+      question: 'What\'s the difference between the Essential and Unlimited plans?',
+      answer: 'The Essential Plan is perfect for creating your first will and includes all core features. The Unlimited Plan includes everything in Essential plus unlimited free edits for one year, which is ideal if you expect life changes or want to make updates without additional cost.',
+    },
+    {
+      question: 'Can I upgrade from Essential to Unlimited later?',
+      answer: 'Absolutely! You can upgrade from Essential to Unlimited at any time. We\'ll credit your previous purchase toward the upgrade cost.',
     },
     {
       question: 'Can I get a refund if I\'m not satisfied?',
-      answer: 'Yes, we offer a 60-day money-back guarantee. If you\'re not completely satisfied with your will, contact us for a full refund.',
+      answer: 'Yes, we offer a 30-day money-back guarantee. If you\'re not completely satisfied with your will, contact us for a full refund.',
     },
   ],
   'Technical Support': [
