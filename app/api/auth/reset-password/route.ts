@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     const { token, password } = validationResult.data;
 
     // Find user with this reset token
-    const { db } = await dbService.getDatabase();
+    const db = await dbService.getDatabase();
     const user = await db.collection('users').findOne({
       resetToken: token,
       resetTokenExpiry: { $gt: new Date() }, // Token hasn't expired
