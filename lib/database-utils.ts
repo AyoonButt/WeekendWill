@@ -220,8 +220,19 @@ export class DatabaseManager {
         6,     // HostUnreachable
         89,    // NetworkTimeout
       ];
+
+      // Handle both string and number codes
+      if (typeof error.code === 'number') {
+        return retriableCodes.includes(error.code);
+      }
       
-      return retriableCodes.includes(error.code);
+      // Convert string codes to numbers if possible
+      if (typeof error.code === 'string') {
+        const numericCode = parseInt(error.code, 10);
+        return !isNaN(numericCode) && retriableCodes.includes(numericCode);
+      }
+      
+      return false;
     }
     
     return false;

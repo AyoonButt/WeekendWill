@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 import { connectToMongoDB, User } from '@/lib/models';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20',
+  apiVersion: '2025-06-30.basil',
 });
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -12,7 +12,7 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
-    const headersList = headers();
+    const headersList = await headers();
     const sig = headersList.get('stripe-signature');
 
     if (!sig) {
@@ -96,8 +96,10 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
           'subscription.plan': plan,
           'subscription.status': subscription.status === 'active' ? 'active' : 'inactive',
           'subscription.subscriptionId': subscription.id,
-          'subscription.currentPeriodEnd': new Date(subscription.current_period_end * 1000),
-          'subscription.cancelAtPeriodEnd': subscription.cancel_at_period_end,
+          'subscription.currentPeriodEnd': (subscription as any).current_period_end
+            ? new Date((subscription as any).current_period_end * 1000)
+            : null,
+          'subscription.cancelAtPeriodEnd': (subscription as any).cancel_at_period_end ?? false,
           updatedAt: new Date(),
         },
       }
@@ -133,7 +135,7 @@ async function handleSubscriptionCancellation(subscription: Stripe.Subscription)
 async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   try {
     const customerId = invoice.customer as string;
-    const subscriptionId = invoice.subscription as string;
+    const subscriptionId = typeof (invoice as any).subscription === 'string' ? (invoice as any).subscription : undefined;
 
     await User.findOneAndUpdate(
       { 'subscription.stripeCustomerId': customerId },

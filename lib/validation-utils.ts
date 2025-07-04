@@ -202,7 +202,16 @@ export const createFormValidator = <T extends z.ZodRawShape>(
         return { success: true, data: result.data };
       }
       
-      const errors = result.error.flatten().fieldErrors;
+      const fieldErrors = result.error.flatten().fieldErrors;
+      const errors: Record<string, string[]> = {};
+      
+      // Filter out undefined values
+      for (const [key, value] of Object.entries(fieldErrors)) {
+        if (value && Array.isArray(value)) {
+          errors[key] = value;
+        }
+      }
+      
       return { success: false, errors };
     },
     

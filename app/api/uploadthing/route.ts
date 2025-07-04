@@ -9,6 +9,6 @@ export const { GET, POST } = createRouteHandler({
   config: {
     token: process.env.UPLOADTHING_SECRET,
     isDev: process.env.NODE_ENV === "development",
-    logLevel: "debug",
+    logLevel: "Debug",
   },
 });

@@ -228,6 +228,8 @@ export interface InterviewStepProps {
   description?: string;
   currentStep: number;
   totalSteps: number;
+  stepLabels: string[];
+  completedSteps: number[];
   children: React.ReactNode;
   onNext: () => void;
   onBack: () => void;

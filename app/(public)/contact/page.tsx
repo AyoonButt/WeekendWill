@@ -1,6 +1,7 @@
-import { Metadata } from 'next';
+'use client';
+
 import { Card } from '@/components/ui';
-import { PublicPageContainer } from '@/components/layout';
+import { EnhancedPublicLayout } from '@/components/layout';
 import { 
   EnvelopeIcon,
   PhoneIcon,
@@ -10,22 +11,9 @@ import {
 } from '@heroicons/react/24/outline';
 import ContactForm from './ContactForm';
 
-export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with our estate planning experts. We\'re here to help with your will creation questions.',
-  openGraph: {
-    title: 'Contact Us - Weekend Will',
-    description: 'Get in touch with our estate planning experts. We\'re here to help with your will creation questions.',
-  },
-};
-
-// Enable static generation for better performance
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-
 export default function ContactPage() {
   return (
-    <PublicPageContainer>
+    <EnhancedPublicLayout>
       {/* Header Section */}
       <div className="bg-white">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
@@ -204,6 +192,6 @@ export default function ContactPage() {
           </Card>
         </div>
       </div>
-    </PublicPageContainer>
+    </EnhancedPublicLayout>
   );
 }

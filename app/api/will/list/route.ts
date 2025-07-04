@@ -36,7 +36,7 @@ export async function GET(_request: NextRequest) {
     .lean(); // Use lean for better performance
 
     const formattedWills = wills.map(will => ({
-      id: will._id.toString(),
+      id: (will._id as any).toString(),
       status: will.status,
       stateCompliance: will.stateCompliance,
       progress: will.progress,

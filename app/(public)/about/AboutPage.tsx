@@ -1,8 +1,5 @@
-'use client';
-
 import React from 'react';
-import Image from 'next/image';
-import { PublicPageContainer } from '@/components/layout';
+import { PublicLayout } from '@/components/layout';
 import { 
   HeartIcon,
   ShieldCheckIcon,
@@ -35,7 +32,7 @@ const AboutPage: React.FC = () => {
   ];
 
   return (
-    <PublicPageContainer>
+    <PublicLayout>
       <div className="max-w-4xl mx-auto space-y-16">
         {/* Hero Section */}
         <div className="text-center space-y-6">
@@ -85,13 +82,11 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
           <div className="flex justify-center">
-            <Image 
+            <img 
               src="/about.png" 
               alt="Weekend Will - Estate Planning" 
               width={400}
               height={300}
-              priority={true}
-              sizes="(max-width: 768px) 100vw, 400px"
               className="max-w-full h-auto rounded-lg shadow-lg"
             />
           </div>
@@ -197,7 +192,7 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </PublicPageContainer>
+    </PublicLayout>
   );
 };
 

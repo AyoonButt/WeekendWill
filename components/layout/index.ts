@@ -8,3 +8,8 @@ export {
   DashboardPageContainer,
   InterviewPageContainer
 } from './PageContainer';
+
+// New layout components
+export { PublicLayout } from './PublicLayout';
+export { InteractiveHeader } from './InteractiveHeader';
+export { EnhancedPublicLayout } from './EnhancedPublicLayout';

@@ -5,7 +5,7 @@ import { connectToMongoDB, User } from '@/lib/models';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20',
+  apiVersion: '2025-06-30.basil',
 });
 
 export async function GET(request: NextRequest) {
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
       try {
         const stripeSubscription = await stripe.subscriptions.retrieve(
           subscription.subscriptionId
-        );
+        ) as Stripe.Subscription;
 
         const stripeCustomer = await stripe.customers.retrieve(
           subscription.stripeCustomerId
@@ -49,15 +49,19 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({
           plan: subscription.plan,
           status: stripeSubscription.status,
-          currentPeriodEnd: new Date(stripeSubscription.current_period_end * 1000),
-          currentPeriodStart: new Date(stripeSubscription.current_period_start * 1000),
-          cancelAtPeriodEnd: stripeSubscription.cancel_at_period_end,
+          currentPeriodEnd: (stripeSubscription as any).current_period_end
+            ? new Date((stripeSubscription as any).current_period_end * 1000)
+            : null,
+          currentPeriodStart: (stripeSubscription as any).current_period_start
+            ? new Date((stripeSubscription as any).current_period_start * 1000)
+            : null,
+          cancelAtPeriodEnd: (stripeSubscription as any).cancel_at_period_end,
           subscriptionId: stripeSubscription.id,
           customerId: subscription.stripeCustomerId,
           defaultPaymentMethod: stripeSubscription.default_payment_method,
-          nextBillingDate: stripeSubscription.cancel_at_period_end 
-            ? null 
-            : new Date(stripeSubscription.current_period_end * 1000),
+          nextBillingDate: (stripeSubscription as any).cancel_at_period_end
+            ? null
+            : new Date((stripeSubscription as any).current_period_end * 1000),
           customer: {
             email: stripeCustomer.email,
             name: stripeCustomer.name,
@@ -135,8 +139,10 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({
       message: 'Subscription will be canceled at the end of the current period',
-      cancelAtPeriodEnd: canceledSubscription.cancel_at_period_end,
-      currentPeriodEnd: new Date(canceledSubscription.current_period_end * 1000),
+      cancelAtPeriodEnd: (canceledSubscription as any).cancel_at_period_end,
+      currentPeriodEnd: (canceledSubscription as any).current_period_end
+        ? new Date((canceledSubscription as any).current_period_end * 1000)
+        : null,
     });
 
   } catch (error) {

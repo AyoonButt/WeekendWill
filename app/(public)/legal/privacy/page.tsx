@@ -1,17 +1,11 @@
-import { Metadata } from 'next';
-import { Card } from '@/components/ui';
-import { PublicPageContainer } from '@/components/layout';
-import { ShieldCheckIcon } from '@heroicons/react/24/outline';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'Learn how Weekend Will protects your personal information and privacy.',
-  robots: 'index, follow',
-};
+import { PublicLayout } from '@/components/layout';
+import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 
 export default function PrivacyPolicyPage() {
   return (
-    <PublicPageContainer>
+    <PublicLayout>
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -24,8 +18,8 @@ export default function PrivacyPolicyPage() {
           </p>
         </div>
 
-        <Card>
-          <Card.Content className="p-8 prose max-w-none">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div className="p-8 prose max-w-none">
             <div className="space-y-8">
               <section>
                 <h2 className="text-2xl font-semibold text-charcoal-900 mb-4">
@@ -200,9 +194,9 @@ export default function PrivacyPolicyPage() {
                 </div>
               </section>
             </div>
-          </Card.Content>
-        </Card>
+          </div>
+        </div>
       </div>
-    </PublicPageContainer>
+    </PublicLayout>
   );
 }

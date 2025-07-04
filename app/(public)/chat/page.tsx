@@ -1,20 +1,16 @@
-import { Metadata } from 'next';
+'use client';
+
 import { Card } from '@/components/ui';
-import { PublicPageContainer } from '@/components/layout';
+import { EnhancedPublicLayout } from '@/components/layout';
 import { 
   ChatBubbleLeftRightIcon,
   ClockIcon,
   UserIcon 
 } from '@heroicons/react/24/outline';
 
-export const metadata: Metadata = {
-  title: 'Live Chat Support',
-  description: 'Chat with our estate planning experts for immediate assistance.',
-};
-
 export default function ChatPage() {
   return (
-    <PublicPageContainer>
+    <EnhancedPublicLayout>
       {/* Header Section */}
       <div className="bg-white">
         <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
@@ -194,6 +190,6 @@ export default function ChatPage() {
           </Card>
         </div>
       </div>
-    </PublicPageContainer>
+    </EnhancedPublicLayout>
   );
 }

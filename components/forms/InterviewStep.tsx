@@ -12,6 +12,8 @@ const InterviewStep: React.FC<InterviewStepProps> = ({
   description,
   currentStep,
   totalSteps,
+  stepLabels,
+  completedSteps,
   children,
   onNext,
   onBack,
@@ -28,8 +30,8 @@ const InterviewStep: React.FC<InterviewStepProps> = ({
           <ProgressSteps
             currentStep={currentStep}
             totalSteps={totalSteps}
-            stepLabels={[]} // Will be populated by the parent component
-            completedSteps={Array.from({ length: currentStep - 1 }, (_, i) => i + 1)}
+            stepLabels={stepLabels}
+            completedSteps={completedSteps}
           />
         </div>
 

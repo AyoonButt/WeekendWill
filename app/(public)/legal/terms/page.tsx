@@ -1,17 +1,11 @@
-import { Metadata } from 'next';
-import { Card } from '@/components/ui';
-import { PublicPageContainer } from '@/components/layout';
-import { DocumentTextIcon } from '@heroicons/react/24/outline';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Terms of Service',
-  description: 'Read our terms of service for using Weekend Will\'s estate planning platform.',
-  robots: 'index, follow',
-};
+import { PublicLayout } from '@/components/layout';
+import { DocumentTextIcon } from '@heroicons/react/24/outline';
 
 export default function TermsOfServicePage() {
   return (
-    <PublicPageContainer>
+    <PublicLayout>
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -24,8 +18,8 @@ export default function TermsOfServicePage() {
           </p>
         </div>
 
-        <Card>
-          <Card.Content className="p-8 prose max-w-none">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div className="p-8 prose max-w-none">
             <div className="space-y-8">
               <section>
                 <h2 className="text-2xl font-semibold text-charcoal-900 mb-4">
@@ -38,7 +32,7 @@ export default function TermsOfServicePage() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibent text-charcoal-900 mb-4">
+                <h2 className="text-2xl font-semibold text-charcoal-900 mb-4">
                   Description of Service
                 </h2>
                 <p className="text-charcoal-700 leading-relaxed mb-4">
@@ -242,9 +236,9 @@ export default function TermsOfServicePage() {
                 </div>
               </section>
             </div>
-          </Card.Content>
-        </Card>
+          </div>
+        </div>
       </div>
-    </PublicPageContainer>
+    </PublicLayout>
   );
 }

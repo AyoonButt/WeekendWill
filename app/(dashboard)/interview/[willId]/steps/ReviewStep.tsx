@@ -9,6 +9,8 @@ interface ReviewStepProps {
   willData: any;
   currentStep: number;
   totalSteps: number;
+  stepLabels: string[];
+  completedSteps: number[];
   onNext: (data?: any) => void;
   onBack: () => void;
   canProceed: (data: any) => boolean;
@@ -19,6 +21,8 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
   willData,
   currentStep,
   totalSteps,
+  stepLabels,
+  completedSteps,
   onNext,
   onBack,
   canProceed,
@@ -29,6 +33,8 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
     <ReviewStepWrapper
       currentStep={currentStep}
       totalSteps={totalSteps}
+      stepLabels={stepLabels}
+      completedSteps={completedSteps}
       onNext={() => onNext()}
       onBack={onBack}
       canProceed={canProceed(willData) && !isSaving}

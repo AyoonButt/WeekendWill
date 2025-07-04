@@ -39,6 +39,8 @@ const ExecutorsStep: React.FC<ExecutorsStepProps> = ({
   willData,
   currentStep,
   totalSteps,
+  stepLabels,
+  completedSteps,
   onNext,
   onBack,
   canProceed,
@@ -120,6 +122,8 @@ const ExecutorsStep: React.FC<ExecutorsStepProps> = ({
     <ExecutorsStepWrapper
       currentStep={currentStep}
       totalSteps={totalSteps}
+      stepLabels={stepLabels}
+      completedSteps={completedSteps}
       onNext={handleNext}
       onBack={onBack}
       canProceed={isProceedValid && !isSaving}

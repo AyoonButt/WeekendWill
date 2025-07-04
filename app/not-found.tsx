@@ -1,4 +1,5 @@
-import { Metadata } from 'next';
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { 
@@ -6,11 +7,6 @@ import {
   HomeIcon,
   ArrowLeftIcon 
 } from '@heroicons/react/24/outline';
-
-export const metadata: Metadata = {
-  title: 'Page Not Found',
-  description: 'The page you are looking for could not be found.',
-};
 
 export default function NotFound() {
   return (
