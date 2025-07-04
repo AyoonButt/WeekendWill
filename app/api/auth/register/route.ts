@@ -112,11 +112,17 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Registration error:', error);
+    console.error('Environment check:', {
+      hasMongoUri: !!process.env.MONGODB_URI,
+      mongoDbName: process.env.MONGODB_DB || 'weekend-will',
+      nodeEnv: process.env.NODE_ENV
+    });
     
     return NextResponse.json(
       { 
         success: false, 
-        error: 'Registration failed. Please try again.' 
+        error: 'Registration failed. Please try again.',
+        debug: process.env.NODE_ENV === 'development' && error instanceof Error ? error.message : undefined
       },
       { status: 500 }
     );
