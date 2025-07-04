@@ -71,28 +71,9 @@ function LoginForm() {
       const result = await signIn('credentials', {
         email: data.email,
         password: data.password,
-        redirect: false,
+        callbackUrl,
+        redirect: true,
       });
-
-      if (result?.error) {
-        setError('root', {
-          message: 'Invalid email or password. Please try again.',
-        });
-      } else if (result?.ok) {
-        showSuccess('Welcome back!', 'You have been signed in successfully');
-        
-        // Wait for session to update then redirect
-        setTimeout(async () => {
-          const session = await getSession();
-          if (session) {
-            router.push(callbackUrl);
-            router.refresh();
-          } else {
-            // Fallback if session isn't ready
-            router.push(callbackUrl);
-          }
-        }, 100);
-      }
     } catch (error) {
       console.error('Login error:', error);
       setError('root', {
