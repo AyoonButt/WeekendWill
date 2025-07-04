@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap');
+
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #1e40af;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e3a8a;
+  --color-primary-900: #1e293b;
+
+  --color-teal-50: #f0fdfa;
+  --color-teal-100: #ccfbf1;
+  --color-teal-200: #99f6e4;
+  --color-teal-300: #5eead4;
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0f766e;
+  --color-teal-700: #0f5b4e;
+  --color-teal-800: #115e59;
+  --color-teal-900: #134e4a;
+
+  --color-success-50: #ecfdf5;
+  --color-success-100: #d1fae5;
+  --color-success-200: #a7f3d0;
+  --color-success-300: #6ee7b7;
+  --color-success-400: #34d399;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+  --color-success-800: #065f46;
+  --color-success-900: #064e3b;
+
+  --color-gold-50: #fffbeb;
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+  --color-gold-700: #b45309;
+  --color-gold-800: #92400e;
+  --color-gold-900: #78350f;
+
+  --color-charcoal-50: #f9fafb;
+  --color-charcoal-100: #f3f4f6;
+  --color-charcoal-200: #e5e7eb;
+  --color-charcoal-300: #d1d5db;
+  --color-charcoal-400: #9ca3af;
+  --color-charcoal-500: #6b7280;
+  --color-charcoal-600: #4b5563;
+  --color-charcoal-700: #374151;
+  --color-charcoal-800: #1f2937;
+  --color-charcoal-900: #111827;
+
+  --font-family-sans: 'Source Sans 3', ui-sans-serif, system-ui;
+  --font-family-serif: 'Merriweather', ui-serif, Georgia;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  --line-height-xs: 1.5;
+  --line-height-sm: 1.5;
+  --line-height-base: 1.5;
+  --line-height-lg: 1.5;
+  --line-height-xl: 1.5;
+  --line-height-2xl: 1.25;
+  --line-height-3xl: 1.25;
+  --line-height-4xl: 1.25;
+
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+
+  --min-height-44: 2.75rem;
+}
+
+@layer base {
+  html {
+    font-family: 'Source Sans 3', ui-sans-serif, system-ui;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-charcoal-700 antialiased;
+    font-size: 1rem; /* Minimum 16px for accessibility */
+  }
+
+  /* Focus styles for accessibility */
+  *:focus {
+    @apply outline-none ring-2 ring-primary-600 ring-offset-2;
+  }
+
+  /* Ensure minimum touch targets */
+  button, 
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    @apply min-h-44 min-w-44;
+  }
+
+  /* High contrast for better accessibility */
+  ::selection {
+    @apply bg-primary-100 text-primary-900;
+  }
+}
+
+@layer components {
+  /* Trust signal styles */
+  .trust-signal {
+    @apply flex items-center space-x-3 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  .trust-signal-icon {
+    @apply w-8 h-8 text-teal-600 flex-shrink-0;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm;
+  }
+
+  .card-elevated {
+    @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
+  }
+
+  /* Form styles */
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-charcoal-700;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-colors duration-200;
+  }
+
+  .form-error {
+    @apply text-sm text-red-600 mt-1;
+  }
+
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg transition-all duration-200 min-h-44 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-600;
+  }
+
+  .btn-secondary {
+    @apply bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-600;
+  }
+
+  .btn-outline {
+    @apply border-charcoal-300 text-charcoal-700 hover:bg-charcoal-50 focus:ring-charcoal-500;
+  }
+
+  .btn-ghost {
+    @apply text-charcoal-600 hover:text-charcoal-900 hover:bg-charcoal-50 focus:ring-charcoal-500;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-8 py-4 text-lg;
+  }
+
+  /* Loading state */
+  .btn-loading {
+    @apply opacity-75 cursor-not-allowed;
+  }
+
+  /* Progress styles */
+  .progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+  }
+
+  .progress-fill {
+    @apply h-2 bg-primary-600 rounded-full transition-all duration-300;
+  }
+
+  /* Security badge styles */
+  .security-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800;
+  }
+
+  /* Document status styles */
+  .status-draft {
+    @apply bg-gold-100 text-gold-800;
+  }
+
+  .status-completed {
+    @apply bg-success-100 text-success-800;
+  }
+
+  .status-executed {
+    @apply bg-primary-100 text-primary-800;
+  }
+}
+
+@layer utilities {
+  /* Accessibility utilities */
+  .sr-only-focusable {
+    @apply sr-only;
+  }
+  
+  .sr-only-focusable:focus {
+    @apply not-sr-only;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  /* Text utilities for better readability */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Container utilities */
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode colors would go here */
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
