@@ -97,7 +97,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Right side */}
-            <div className="flex items-center justify-end flex-shrink-0 w-16">
+            <div className="flex items-center justify-end flex-shrink-0 w-20">
               {status === 'loading' ? (
                 <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse" />
               ) : session ? (
