@@ -41,7 +41,7 @@ const DocumentsList: React.FC<DocumentsListProps> = ({ userId }) => {
     try {
       const response = await apiClient.get(`/documents?userId=${userId}`);
       if (response.success) {
-        setDocuments(response.data || []);
+        setDocuments(Array.isArray(response.data) ? response.data : []);
       }
     } catch (error) {
       console.error('Failed to fetch documents:', error);
@@ -71,18 +71,18 @@ const DocumentsList: React.FC<DocumentsListProps> = ({ userId }) => {
     }
   };
 
-  const handleDownload = async (document: Document) => {
+  const handleDownload = async (doc: Document) => {
     try {
-      setSelectedDocument(document.id);
-      const response = await apiClient.get(`/documents/${document.id}/download`);
+      setSelectedDocument(doc.id);
+      const response = await apiClient.get(`/documents/${doc.id}/download`);
       
       if (response.success) {
         // Create download link
-        const blob = new Blob([response.data], { type: 'application/pdf' });
+        const blob = new Blob([response.data as BlobPart], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `${document.name}.pdf`;
+        link.download = `${doc.name}.pdf`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -90,7 +90,7 @@ const DocumentsList: React.FC<DocumentsListProps> = ({ userId }) => {
         
         showSuccess(
           'Download Started',
-          `${document.name} is being downloaded.`
+          `${doc.name} is being downloaded.`
         );
       }
     } catch (error) {

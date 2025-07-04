@@ -6,7 +6,7 @@ import { Types } from 'mongoose';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { willId: string } }
+  { params }: { params: Promise<{ willId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);

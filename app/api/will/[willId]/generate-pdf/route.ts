@@ -7,7 +7,7 @@ import jsPDF from 'jspdf';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { willId: string } }
+  { params }: { params: Promise<{ willId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);

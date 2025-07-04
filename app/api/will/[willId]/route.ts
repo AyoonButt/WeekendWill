@@ -6,7 +6,7 @@ import { Types } from 'mongoose';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { willId: string } }
+  { params }: { params: Promise<{ willId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -53,7 +53,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { willId: string } }
+  { params }: { params: Promise<{ willId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -109,7 +109,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { willId: string } }
+  { params }: { params: Promise<{ willId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);

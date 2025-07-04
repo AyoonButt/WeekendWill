@@ -461,7 +461,7 @@ const AccountSettings: React.FC<AccountSettingsProps> = ({ user, section }) => {
           </div>
 
           <Button
-            variant="destructive"
+            variant="outline"
             onClick={handleAccountDeactivation}
             disabled={isLoading}
             loading={isLoading}
