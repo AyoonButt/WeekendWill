@@ -2,8 +2,7 @@ import { Metadata } from 'next';
 import Card from '@/components/ui/Card';
 import { PublicPageContainer } from '@/components/layout';
 import { 
-  QuestionMarkCircleIcon,
-  MagnifyingGlassIcon 
+  QuestionMarkCircleIcon
 } from '@heroicons/react/24/outline';
 import FAQSection from './FAQSection';
 import FAQSearch from './FAQSearch';

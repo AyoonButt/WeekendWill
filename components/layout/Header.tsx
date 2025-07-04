@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation';
 import { 
   Bars3Icon, 
   XMarkIcon, 
-  UserCircleIcon,
   ChevronDownIcon,
   DocumentTextIcon,
   FolderIcon,

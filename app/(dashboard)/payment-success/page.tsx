@@ -39,7 +39,7 @@ export default async function PaymentSuccessPage() {
               What happens next?
             </h3>
             <ul className="text-sm text-success-700 space-y-2 text-left">
-              <li>• You'll receive a confirmation email with your receipt</li>
+              <li>• You&apos;ll receive a confirmation email with your receipt</li>
               <li>• Your account has been upgraded with your selected plan features</li>
               <li>• You can start creating your will immediately</li>
               <li>• Access to customer support for any questions</li>

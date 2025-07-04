@@ -14,7 +14,7 @@ interface PricingModalProps {
 
 const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onSelectPlan }) => {
   const [isLoading, setIsLoading] = useState<string | null>(null);
-  const { showError, showSuccess } = useToast();
+  const { showError } = useToast();
 
   const handlePlanSelection = async (planName: string, stripePriceId: string) => {
     if (onSelectPlan) {

@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { EyeIcon, EyeSlashIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
-import { Button, Input, Card, Checkbox, PricingModal } from '@/components/ui';
+import { Button, Input, Card, PricingModal } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 import { CompactTrustSignals } from '@/components/estate-planning';
 

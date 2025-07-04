@@ -8,14 +8,10 @@ import {
   CheckIcon, 
   ArrowRightIcon, 
   PlayIcon,
-  StarIcon,
   ClockIcon,
   ShieldCheckIcon,
   DocumentTextIcon,
-  UserGroupIcon,
-  ScaleIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon
+  ScaleIcon
 } from '@heroicons/react/24/outline';
 import { Button, Card } from '@/components/ui';
 import { TrustSignals, CompactTrustSignals } from '@/components/estate-planning';
@@ -25,10 +21,33 @@ const TestimonialSection = lazy(() => import('@/components/sections/TestimonialS
 const ProcessSection = lazy(() => import('@/components/sections/ProcessSection'));
 import { PublicPageContainer } from '@/components/layout';
 
+// TypeScript interfaces
+interface BenefitItem {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+}
+
+interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+interface StatItem {
+  number: string;
+  label: string;
+}
+
+interface ProgressItem {
+  section: string;
+  completed: boolean;
+}
+
 const HomePage: React.FC = () => {
   const { data: session } = useSession();
 
-  const benefits = [
+  const benefits: BenefitItem[] = [
     {
       icon: ClockIcon,
       title: 'Complete in 15 minutes',
@@ -51,68 +70,11 @@ const HomePage: React.FC = () => {
     }
   ];
 
-  const processSteps = [
-    {
-      step: '1',
-      title: 'Answer Simple Questions',
-      description: 'Our guided interview asks about your family, assets, and wishes in plain English.'
-    },
-    {
-      step: '2',
-      title: 'Review Your Choices',
-      description: 'See your decisions clearly laid out before finalizing your will.'
-    },
-    {
-      step: '3',
-      title: 'Download & Execute',
-      description: 'Get your legal will ready to sign with witness instructions included.'
-    }
-  ];
+  // processSteps moved to ProcessSection component
 
-  const testimonials = [
-    {
-      name: 'Emily R.',
-      location: '',
-      text: 'Weekend Will gave me peace of mind knowing my family is taken care of',
-      rating: 5
-    },
-    {
-      name: 'Jon I.',
-      location: '',
-      text: 'I had no idea making a will could be this simple. Thank you!',
-      rating: 5
-    },
-    {
-      name: 'Jessica T.',
-      location: '',
-      text: 'Affordable, fast and easy. The best decision I\'ve made for my family',
-      rating: 5
-    },
-    {
-      name: 'Sarah K.',
-      location: '',
-      text: 'The step-by-step process made this so much less intimidating than I expected',
-      rating: 5
-    },
-    {
-      name: 'David L.',
-      location: '',
-      text: 'I put this off for years and completed it in under an hour. Incredible service!',
-      rating: 5
-    },
-    {
-      name: 'Emily R.',
-      location: '',
-      text: 'Weekend Will gave me peace of mind knowing my family is taken care of',
-      rating: 5
-    }
-  ];
+  // testimonials moved to TestimonialSection component
 
-  const [currentTestimonialSet, setCurrentTestimonialSet] = React.useState(0);
-  const testimonialsPerSet = 3;
-  const totalSets = Math.ceil(testimonials.length / testimonialsPerSet);
-
-  const stats = [
+  const stats: StatItem[] = [
     { number: '50,000+', label: 'Families Protected' },
     { number: '15 min', label: 'Average Completion Time' },
     { number: '50 states', label: 'Legal Compliance' },
@@ -279,13 +241,13 @@ const HomePage: React.FC = () => {
                   </div>
                   
                   <div className="space-y-4">
-                    {[
+                    {([
                       { section: 'Personal Information', completed: true },
                       { section: 'Family & Relationships', completed: true },
                       { section: 'Assets & Property', completed: true },
                       { section: 'Beneficiaries', completed: false },
                       { section: 'Executors & Guardians', completed: false }
-                    ].map((item, index) => (
+                    ] as ProgressItem[]).map((item, index) => (
                       <div key={index} className="flex items-center justify-between">
                         <span className="text-charcoal-700">{item.section}</span>
                         {item.completed ? (

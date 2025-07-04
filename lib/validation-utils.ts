@@ -164,12 +164,12 @@ export class ValidationUtils {
 
 // Async validation functions
 export class AsyncValidation {
-  static async validateEmailUnique(email: string, excludeUserId?: string): Promise<boolean> {
+  static async validateEmailUnique(_email: string, _excludeUserId?: string): Promise<boolean> {
     try {
       // This would typically make an API call to check email uniqueness
       // For now, we'll return true (valid)
       return true;
-    } catch (error) {
+    } catch {
       throw new ValidationError('Unable to validate email uniqueness');
     }
   }
