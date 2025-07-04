@@ -6,7 +6,6 @@ import bcrypt from 'bcryptjs';
 import { connectToDatabase, clientPromise } from './mongodb';
 
 export const authOptions: NextAuthOptions = {
-  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -74,31 +73,45 @@ export const authOptions: NextAuthOptions = {
         token.role = user.role || 'user';
         token.userId = user.id;
 
-        // Handle OAuth providers - defer heavy operations
+        // Handle OAuth providers
         if (account.provider === 'google') {
-          // Store email for deferred user creation
-          token.email = user.email?.toLowerCase();
-          token.name = user.name;
-          token.image = user.image;
-          
-          // Quick user lookup only
           try {
             const { db } = await connectToDatabase();
-            const existingUser = await db.collection('users').findOne(
-              { email: user.email?.toLowerCase() },
-              { projection: { _id: 1, role: 1 } } // Only get what we need
-            );
+            let existingUser = await db.collection('users').findOne({
+              email: user.email?.toLowerCase(),
+            });
 
-            if (existingUser) {
-              token.userId = existingUser._id.toString();
-              token.role = existingUser.role || 'user';
-            } else {
-              // Mark for creation on next request
-              token.needsUserCreation = true;
+            if (!existingUser) {
+              // Create new user for Google OAuth
+              const userData = {
+                email: user.email?.toLowerCase(),
+                profile: {
+                  firstName: user.name?.split(' ')[0] || '',
+                  lastName: user.name?.split(' ').slice(1).join(' ') || '',
+                },
+                image: user.image,
+                role: 'user',
+                subscription: {
+                  plan: 'essential',
+                  status: 'inactive',
+                },
+                emailVerified: new Date(),
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              };
+
+              const result = await db.collection('users').insertOne(userData);
+              existingUser = { ...userData, _id: result.insertedId };
             }
+
+            token.userId = existingUser._id.toString();
+            token.role = existingUser.role || 'user';
+            token.email = existingUser.email;
+            token.name = user.name;
+            token.image = user.image;
           } catch (error) {
-            console.error('Error checking OAuth user:', error);
-            token.needsUserCreation = true;
+            console.error('Error handling Google OAuth user:', error);
+            throw new Error('OAuth authentication failed');
           }
         }
       }
