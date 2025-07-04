@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
         token.userId = user.id;
 
         // Handle OAuth providers
-        if (account.provider === 'google') {
+        if (account?.provider === 'google') {
           try {
             const { db } = await connectToDatabase();
             let existingUser = await db.collection('users').findOne({
