@@ -23,23 +23,38 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
+          console.log('=== CREDENTIALS AUTH DEBUG ===');
+          console.log('Attempting login for email:', credentials.email);
+          
           const { db } = await connectToDatabase();
+          console.log('Database connected successfully');
+          
           const user = await db.collection('users').findOne({
             email: credentials.email.toLowerCase(),
           });
 
+          console.log('User lookup result:', user ? 'User found' : 'No user found');
+          
           if (!user) {
+            console.log('Authentication failed: No user found');
             throw new Error('No user found with this email');
           }
 
+          console.log('Comparing password...');
           const isPasswordValid = await bcrypt.compare(
             credentials.password,
             user.hashedPassword
           );
 
+          console.log('Password valid:', isPasswordValid);
+
           if (!isPasswordValid) {
+            console.log('Authentication failed: Invalid password');
             throw new Error('Invalid password');
           }
+
+          console.log('Authentication successful for user:', user.email);
+          console.log('=== END CREDENTIALS AUTH DEBUG ===');
 
           return {
             id: user._id.toString(),
