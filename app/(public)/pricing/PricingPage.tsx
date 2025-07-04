@@ -9,7 +9,7 @@ import {
   QuestionMarkCircleIcon,
   StarIcon 
 } from '@heroicons/react/24/outline';
-import { Button, Card } from '@/components/ui';
+import { Button, Card, Toggle } from '@/components/ui';
 import { PricingCard, TrustSignals, SecurityBadge } from '@/components/estate-planning';
 import { PublicPageContainer } from '@/components/layout';
 import type { PricingPlan } from '@/types';
@@ -173,20 +173,12 @@ const PricingPage: React.FC = () => {
             <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-charcoal-900' : 'text-charcoal-600'}`}>
               Monthly
             </span>
-            <button
-              onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'annual' : 'monthly')}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 ${
-                billingCycle === 'annual' ? 'bg-primary-600' : 'bg-gray-200'
-              }`}
-              role="switch"
-              aria-checked={billingCycle === 'annual'}
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  billingCycle === 'annual' ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
-            </button>
+            <Toggle
+              checked={billingCycle === 'annual'}
+              onChange={(checked) => setBillingCycle(checked ? 'annual' : 'monthly')}
+              size="lg"
+              label="Switch between monthly and annual billing"
+            />
             <span className={`text-sm font-medium ${billingCycle === 'annual' ? 'text-charcoal-900' : 'text-charcoal-600'}`}>
               Annual
             </span>

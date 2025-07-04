@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { XMarkIcon, CheckIcon } from '@heroicons/react/24/outline';
-import { Button, Modal } from '@/components/ui';
+import { Button, Modal, CircleButton } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 import type { PricingPlan } from '@/types';
 
@@ -102,18 +102,8 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onSelectPl
   ];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
-      <div className="p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-charcoal-900">Choose Your Plan</h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <XMarkIcon className="w-5 h-5 text-charcoal-500" />
-          </button>
-        </div>
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" title="Choose Your Plan">
+      <div className="pt-6">{/* Removed p-6 since Modal handles padding */}
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
