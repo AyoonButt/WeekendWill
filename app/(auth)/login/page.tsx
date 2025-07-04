@@ -81,12 +81,17 @@ function LoginForm() {
       } else if (result?.ok) {
         showSuccess('Welcome back!', 'You have been signed in successfully');
         
-        // Get updated session and redirect
-        const session = await getSession();
-        if (session) {
-          router.push(callbackUrl);
-          router.refresh();
-        }
+        // Wait for session to update then redirect
+        setTimeout(async () => {
+          const session = await getSession();
+          if (session) {
+            router.push(callbackUrl);
+            router.refresh();
+          } else {
+            // Fallback if session isn't ready
+            router.push(callbackUrl);
+          }
+        }, 100);
       }
     } catch (error) {
       console.error('Login error:', error);
