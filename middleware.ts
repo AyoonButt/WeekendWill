@@ -23,6 +23,7 @@ export default withAuth(
 
     // Redirect authenticated users away from auth pages
     if (pathname.startsWith('/login') && token) {
+      console.log('Middleware: Redirecting authenticated user from login to dashboard');
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
