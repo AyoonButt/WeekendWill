@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { connectToMongoDB, Will } from '@/lib/models';
 import { cache } from '@/lib/cache';
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     // Parallel execution for better performance
     const [session] = await Promise.all([

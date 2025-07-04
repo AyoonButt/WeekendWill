@@ -251,7 +251,7 @@ export const validateWebhookSignature = (
   try {
     stripe.webhooks.constructEvent(payload, signature, secret);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 };
