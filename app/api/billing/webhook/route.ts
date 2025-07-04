@@ -3,14 +3,34 @@ import { headers } from 'next/headers';
 import Stripe from 'stripe';
 import { connectToMongoDB, User } from '@/lib/models';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-06-30.basil',
-});
-
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+// Initialize Stripe with error handling for build time
+let stripe: Stripe;
+let endpointSecret: string;
+try {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is required');
+  }
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    throw new Error('STRIPE_WEBHOOK_SECRET is required');
+  }
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-06-30.basil',
+  });
+  endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+} catch (error) {
+  console.warn('Stripe webhook initialization failed:', error);
+}
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is properly initialized
+    if (!stripe || !endpointSecret) {
+      return NextResponse.json(
+        { error: 'Webhook service not available' },
+        { status: 503 }
+      );
+    }
+
     const body = await request.text();
     const headersList = await headers();
     const sig = headersList.get('stripe-signature');

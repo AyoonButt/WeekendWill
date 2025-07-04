@@ -4,12 +4,29 @@ import { authOptions } from '@/lib/auth';
 import Stripe from 'stripe';
 import { connectToMongoDB, User } from '@/lib/models';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-06-30.basil',
-});
+// Initialize Stripe with error handling for build time
+let stripe: Stripe;
+try {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is required');
+  }
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-06-30.basil',
+  });
+} catch (error) {
+  console.warn('Stripe portal initialization failed:', error);
+}
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is properly initialized
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Portal service not available' },
+        { status: 503 }
+      );
+    }
+
     const session = await getServerSession(authOptions);
     
     if (!session?.user?.id) {
