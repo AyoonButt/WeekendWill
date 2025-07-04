@@ -1,9 +1,27 @@
 import Stripe from 'stripe';
 
-// Initialize Stripe
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-06-30.basil',
-});
+// Initialize Stripe with error handling for build time
+let stripe: Stripe;
+try {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is required');
+  }
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-06-30.basil',
+  });
+} catch (error) {
+  console.warn('Stripe lib initialization failed:', error);
+}
+
+export { stripe };
+
+// Helper function to ensure Stripe is initialized
+const ensureStripe = (): Stripe => {
+  if (!stripe) {
+    throw new Error('Stripe is not initialized. Please check your environment variables.');
+  }
+  return stripe;
+};
 
 // Pricing plans configuration
 export const PRICING_PLANS = {
@@ -82,8 +100,9 @@ export const createOrRetrieveCustomer = async (
   userId: string
 ): Promise<string> => {
   try {
+    const stripeInstance = ensureStripe();
     // First, try to find existing customer by email
-    const existingCustomers = await stripe.customers.list({
+    const existingCustomers = await stripeInstance.customers.list({
       email: email,
       limit: 1,
     });
@@ -93,7 +112,7 @@ export const createOrRetrieveCustomer = async (
     }
 
     // Create new customer
-    const customer = await stripe.customers.create({
+    const customer = await stripeInstance.customers.create({
       email,
       name,
       metadata: {
