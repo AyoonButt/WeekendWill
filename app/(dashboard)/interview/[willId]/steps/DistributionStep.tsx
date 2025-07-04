@@ -174,7 +174,7 @@ const DistributionStep: React.FC<DistributionStepProps> = ({
                     label="Percentage"
                     type="number"
                     value={beneficiary.percentage}
-                    onChange={(value) => updateBeneficiary(index, 'percentage', parseInt(value) || 0)}
+                    onChange={(event) => updateBeneficiary(index, 'percentage', parseInt(event.target.value) || 0)}
                     placeholder="0"
                     min="0"
                     max="100"

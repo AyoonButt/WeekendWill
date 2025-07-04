@@ -1,5 +1,6 @@
 'use client';
 
+
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
@@ -236,8 +237,6 @@ export const handleApiCall = async <T>(
   options: {
     onSuccess?: (data: T) => void;
     onError?: (error: string) => void;
-    showSuccessToast?: boolean;
-    successMessage?: string;
   } = {}
 ): Promise<ApiResponse<T>> => {
   const response = await apiCall();
@@ -247,13 +246,6 @@ export const handleApiCall = async <T>(
       options.onSuccess(response.data);
     }
     
-    if (options.showSuccessToast && options.successMessage) {
-      toast({
-        title: 'Success',
-        description: options.successMessage,
-        variant: 'default',
-      });
-    }
   } else if (!response.success && options.onError) {
     options.onError(response.error || 'Unknown error');
   }

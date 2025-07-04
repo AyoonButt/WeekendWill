@@ -102,7 +102,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onSelectPl
   ];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="large">
+    <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">

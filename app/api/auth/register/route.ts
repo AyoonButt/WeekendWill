@@ -23,11 +23,21 @@ export async function POST(request: NextRequest) {
     // Validate input
     const validationResult = registerSchema.safeParse(body);
     if (!validationResult.success) {
+      const fieldErrors = validationResult.error.flatten().fieldErrors;
+      const details: Record<string, string[]> = {};
+      
+      // Filter out undefined values
+      for (const [key, value] of Object.entries(fieldErrors)) {
+        if (value && Array.isArray(value)) {
+          details[key] = value;
+        }
+      }
+      
       return NextResponse.json(
         { 
           success: false, 
           error: 'Validation failed',
-          details: validationResult.error.flatten().fieldErrors
+          details
         },
         { status: 400 }
       );

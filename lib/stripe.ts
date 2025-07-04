@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 
 // Initialize Stripe
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20',
+  apiVersion: '2025-06-30.basil',
 });
 
 // Pricing plans configuration
@@ -114,9 +114,13 @@ export const getSubscriptionStatus = async (subscriptionId: string) => {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
     return {
       status: subscription.status,
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      currentPeriodEnd: (subscription as any).current_period_end
+        ? new Date((subscription as any).current_period_end * 1000)
+        : null,
+      currentPeriodStart: (subscription as any).current_period_start
+        ? new Date((subscription as any).current_period_start * 1000)
+        : null,
+      cancelAtPeriodEnd: (subscription as any).cancel_at_period_end,
       priceId: subscription.items.data[0]?.price.id,
     };
   } catch (error) {

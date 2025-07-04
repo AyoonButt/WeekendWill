@@ -1,24 +1,12 @@
-import { Metadata } from 'next';
+'use client';
+
 import Card from '@/components/ui/Card';
-import { PublicPageContainer } from '@/components/layout';
+import { EnhancedPublicLayout } from '@/components/layout';
 import { 
   QuestionMarkCircleIcon
 } from '@heroicons/react/24/outline';
 import FAQSection from './FAQSection';
 import FAQSearch from './FAQSearch';
-
-export const metadata: Metadata = {
-  title: 'Frequently Asked Questions',
-  description: 'Find answers to common questions about creating your will, estate planning, and using Weekend Will.',
-  openGraph: {
-    title: 'FAQ - Weekend Will',
-    description: 'Find answers to common questions about creating your will, estate planning, and using Weekend Will.',
-  },
-};
-
-// Enable static generation for better performance
-export const dynamic = 'force-static';
-export const revalidate = 7200; // Revalidate every 2 hours
 
 const faqData = {
   'Estate Planning Basics': [
@@ -151,7 +139,7 @@ const faqData = {
 
 export default function FAQPage() {
   return (
-    <PublicPageContainer>
+    <EnhancedPublicLayout>
       {/* Header Section */}
       <div className="bg-white">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
@@ -213,6 +201,6 @@ export default function FAQPage() {
           </div>
         </Card>
       </div>
-    </PublicPageContainer>
+    </EnhancedPublicLayout>
   );
 }

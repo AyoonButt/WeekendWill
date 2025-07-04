@@ -238,6 +238,7 @@ export interface IWill extends Document {
   };
   createdAt: Date;
   updatedAt: Date;
+  updateProgress(): void;
 }
 
 // Will Schema

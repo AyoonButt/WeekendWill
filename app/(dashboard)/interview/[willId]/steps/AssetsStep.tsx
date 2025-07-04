@@ -62,6 +62,13 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
   canProceed,
   isSaving
 }) => {
+  // Helper function to safely get error message
+  const getErrorMessage = (error: any) => {
+    if (typeof error === 'string') return error;
+    if (error && typeof error === 'object' && 'message' in error) return error.message;
+    return undefined;
+  };
+
   const [formData, setFormData] = useState<AssetsData>({
     hasRealProperty: false,
     realProperty: [],
@@ -264,14 +271,14 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
                           value={watchedData.realProperty?.[index]?.type}
                           onChange={(value) => setValue(`realProperty.${index}.type`, value)}
                           required
-                          error={errors.realProperty?.[index]?.type?.message}
+                          error={getErrorMessage(errors.realProperty?.[index]?.type)}
                         />
                         
                         <Input
                           label="Estimated Value (Optional)"
                           type="number"
                           placeholder="Enter amount"
-                          error={errors.realProperty?.[index]?.estimatedValue?.message}
+                          error={getErrorMessage(errors.realProperty?.[index]?.estimatedValue)}
                           {...register(`realProperty.${index}.estimatedValue`, { valueAsNumber: true })}
                         />
                       </div>
@@ -280,8 +287,9 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
                         label="Description"
                         placeholder="Brief description of the property"
                         required
-                        error={errors.realProperty?.[index]?.description?.message}
-                        {...register(`realProperty.${index}.description`)}
+                        value={watchedData.realProperty?.[index]?.description || ''}
+                        onChange={(value) => setValue(`realProperty.${index}.description`, value)}
+                        error={getErrorMessage(errors.realProperty?.[index]?.description)}
                       />
                       
                       <div className="mt-4">
@@ -290,7 +298,7 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
                           <Input
                             label="Street Address"
                             required
-                            error={errors.realProperty?.[index]?.address?.street?.message}
+                            error={getErrorMessage(errors.realProperty?.[index]?.address?.street)}
                             {...register(`realProperty.${index}.address.street`)}
                           />
                           
@@ -298,7 +306,7 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
                             <Input
                               label="City"
                               required
-                              error={errors.realProperty?.[index]?.address?.city?.message}
+                              error={getErrorMessage(errors.realProperty?.[index]?.address?.city)}
                               {...register(`realProperty.${index}.address.city`)}
                             />
                             
@@ -308,13 +316,13 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
                               value={watchedData.realProperty?.[index]?.address?.state}
                               onChange={(value) => setValue(`realProperty.${index}.address.state`, value)}
                               required
-                              error={errors.realProperty?.[index]?.address?.state?.message}
+                              error={getErrorMessage(errors.realProperty?.[index]?.address?.state)}
                             />
                             
                             <Input
                               label="ZIP Code"
                               required
-                              error={errors.realProperty?.[index]?.address?.zipCode?.message}
+                              error={getErrorMessage(errors.realProperty?.[index]?.address?.zipCode)}
                               {...register(`realProperty.${index}.address.zipCode`)}
                             />
                           </div>
@@ -393,14 +401,14 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
                           value={watchedData.personalProperty?.[index]?.type}
                           onChange={(value) => setValue(`personalProperty.${index}.type`, value)}
                           required
-                          error={errors.personalProperty?.[index]?.type?.message}
+                          error={getErrorMessage(errors.personalProperty?.[index]?.type)}
                         />
                         
                         <Input
                           label="Estimated Value (Optional)"
                           type="number"
                           placeholder="Enter amount"
-                          error={errors.personalProperty?.[index]?.estimatedValue?.message}
+                          error={getErrorMessage(errors.personalProperty?.[index]?.estimatedValue)}
                           {...register(`personalProperty.${index}.estimatedValue`, { valueAsNumber: true })}
                         />
                       </div>
@@ -409,8 +417,9 @@ const AssetsStep: React.FC<AssetsStepProps> = ({
                         label="Description"
                         placeholder="Brief description of the asset (e.g., 'Chase checking account', '2018 Honda Civic')"
                         required
-                        error={errors.personalProperty?.[index]?.description?.message}
-                        {...register(`personalProperty.${index}.description`)}
+                        value={watchedData.personalProperty?.[index]?.description || ''}
+                        onChange={(value) => setValue(`personalProperty.${index}.description`, value)}
+                        error={getErrorMessage(errors.personalProperty?.[index]?.description)}
                       />
                     </div>
                   ))}

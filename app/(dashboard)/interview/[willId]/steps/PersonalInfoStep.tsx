@@ -72,7 +72,7 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
     watch,
     setValue,
     trigger
-  } = useForm<PersonalInfoData>({
+  } = useForm({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: formData
   });

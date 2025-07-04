@@ -54,8 +54,12 @@ export class ValidationError extends AppError {
     validationErrors: Record<string, string[]> = {},
     context?: ErrorContext
   ) {
+    const filteredValidationErrors = Object.fromEntries(
+      Object.entries(validationErrors).filter(([_, v]) => Array.isArray(v))
+    ) as Record<string, string[]>;
+
     super(message, 'VALIDATION_ERROR', 'warning', 400, context);
-    this.validationErrors = validationErrors;
+    this.validationErrors = filteredValidationErrors;
   }
 }
 
@@ -179,7 +183,7 @@ export class ErrorHandler {
       const validationErrors = error.flatten().fieldErrors;
       return new ValidationError(
         'Input validation failed',
-        validationErrors,
+        validationErrors as Record<string, string[]>,
         context
       );
     }

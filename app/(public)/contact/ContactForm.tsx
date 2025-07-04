@@ -58,7 +58,8 @@ const ContactForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    watch
+    watch,
+    setValue
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -239,11 +240,10 @@ const ContactForm: React.FC = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-charcoal-700 mb-2">
-          Message *
-        </label>
         <Textarea
-          {...register('message')}
+          label="Message *"
+          value={watch('message') || ''}
+          onChange={(value) => setValue('message', value)}
           rows={6}
           placeholder="Please provide detailed information about your inquiry..."
           error={errors.message?.message}

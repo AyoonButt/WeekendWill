@@ -51,9 +51,9 @@ export async function POST(
     const addText = (text: string, fontSize = 12, isBold = false) => {
       pdf.setFontSize(fontSize);
       if (isBold) {
-        pdf.setFont(undefined, 'bold');
+        pdf.setFont('helvetica', 'bold');
       } else {
-        pdf.setFont(undefined, 'normal');
+        pdf.setFont('helvetica', 'normal');
       }
       
       const lines = pdf.splitTextToSize(text, pageWidth - 2 * margin);
