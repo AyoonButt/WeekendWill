@@ -9,8 +9,7 @@ const options = {
   maxPoolSize: 10,
   serverSelectionTimeoutMS: 5000,
   socketTimeoutMS: 45000,
-  ssl: true,
-  sslValidate: true,
+  tls: true,
 };
 
 let client: MongoClient;
