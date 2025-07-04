@@ -33,7 +33,7 @@ const AboutPage: React.FC = () => {
 
   return (
     <PublicLayout>
-      <div className="max-w-4xl mx-auto space-y-16">
+      <div className="max-w-4xl mx-auto space-y-16 pt-16 pb-16">
         {/* Hero Section */}
         <div className="text-center space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-charcoal-900">

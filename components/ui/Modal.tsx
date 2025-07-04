@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/utils';
+import CircleButton from './CircleButton';
 
 interface ModalProps {
   isOpen: boolean;
@@ -76,13 +77,14 @@ const Modal: React.FC<ModalProps> = ({
               <DialogTitle className="text-lg font-semibold text-charcoal-900">
                 {title}
               </DialogTitle>
-              <button
+              <CircleButton
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-600"
+                size="md"
+                variant="default"
                 aria-label="Close modal"
               >
                 <XMarkIcon className="w-5 h-5" />
-              </button>
+              </CircleButton>
             </div>
           )}
 
