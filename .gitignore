@@ -63,3 +63,6 @@ pids
 
 # Testing
 .nyc_output
+
+# Claude Code
+.claude/
